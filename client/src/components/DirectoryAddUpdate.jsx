@@ -31,6 +31,8 @@ export default function DirectoryAddUpdate() {
   const [zip, setZip] = useState("");
   const [county, setCounty] = useState("");
   const [country, setCountry] = useState(DEFAULT_COUNTRY_CODE);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [websites, setWebsites] = useState("");
   const [contactName, setContactName] = useState("");
   const [contactNamePublic, setContactNamePublic] = useState(DEFAULT_FORM_YES_NO);
@@ -80,6 +82,8 @@ export default function DirectoryAddUpdate() {
     setZip("");
     setCounty("");
     setCountry(DEFAULT_COUNTRY_CODE);
+    setLatitude("");
+    setLongitude("");
     setWebsites("");
     setContactName("");
     setContactNamePublic(DEFAULT_FORM_YES_NO);
@@ -93,6 +97,7 @@ export default function DirectoryAddUpdate() {
     setDescEng("");
     setDescOther("");
     setErrors();
+
   }
 
   const oldValues = {};
@@ -249,6 +254,14 @@ export default function DirectoryAddUpdate() {
         coopResults.coopaddresstags_set[0].address.locality.state.country.code
           ? coopResults.coopaddresstags_set[0].address.locality.state.country.code
           : ""
+      );
+      setLatitude(coopResults.coopaddresstags_set[0].address.latitude
+        ? coopResults.coopaddresstags_set[0].address.latitude
+        : ""
+        );
+      setLongitude(coopResults.coopaddresstags_set[0].address.longitude
+        ? coopResults.coopaddresstags_set[0].address.longitude
+        : ""
       );
       setWebsites(coopResults.web_site ? coopResults.web_site : "");
       setContactEmail(coopResults.email ? coopResults.email.email : "");
@@ -540,6 +553,28 @@ export default function DirectoryAddUpdate() {
                     { id: "no", name: "No" },
                   ]}
                 />
+              </div>
+              <div className="form-group col-md-6">
+                <Input
+                  title={"latitude"}
+                  type={"text"}
+                  name={"latitude"}
+                  value={latitude}
+                  placeholder={"Latitude"}
+                  handleChange={(e)=>setLatitude(e.target.value)}
+                  errors={errors}
+                  />
+              </div>
+              <div className="form-group col-md-6">
+                <Input
+                  title={"logitude"}
+                  type={"text"}
+                  name={"longitude"}
+                  value={longitude}
+                  placeholder={"Longitude"}
+                  handleChange={(e)=>setLongitude(e.target.value)}
+                  errors={errors}
+                  />
               </div>
               <div className="form-group col-md-12">
                 <Input
