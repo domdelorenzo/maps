@@ -251,8 +251,12 @@ export default function DirectoryAddUpdate() {
           : ""
       );
       setWebsites(coopResults.web_site ? coopResults.web_site : "");
-      setContactEmail(coopResults.email ? coopResults.email.email : "");
-      setContactPhone(coopResults.phone ? coopResults.phone.phone : "");
+      // setContactEmail(coopResults.email ? coopResults.email.email : "");
+      setContactEmail(coopResults.email ? coopResults.email : [])
+      setContactPhone(coopResults.phone ? coopResults.phone : [{'phone' : '888-888-8888'}]);
+      console.log(coopResults)
+      console.log(coopResults.phone)
+      console.log(coopResults.email)
       setEntityTypes(
         [coopResults.types[0]]
           ? coopResults.types.map((type) => type.name)
@@ -617,7 +621,7 @@ export default function DirectoryAddUpdate() {
               ) : (
                 <div className="form-group col-md-6 col-lg-6"></div>
               )}
-              <div className="form-group col-md-4 col-lg-4">
+              {/* <div className="form-group col-md-4 col-lg-4">
                 <Input
                   type={"tel"}
                   title={"Contact Phone Number"}
@@ -647,6 +651,100 @@ export default function DirectoryAddUpdate() {
                 </div>
               ) : (
                 <div className="form-group col-md-8 col-lg-6"></div>
+              )} */}
+              {contactEmail ? (
+                contactEmail.map((email) => (
+                  <>
+                    <div className="form-group col-md-4 col-lg-4">
+                      <Input
+                        type={"tel"}
+                        title={"Contact Email Address"}
+                        name={"contact_email"}
+                        value={email.email}
+                        placeholder={"Contact email"}
+                        handleChange={(e) => setContactEmail(e.target.value)}
+                        errors={errors}
+                      />{" "}
+                  </div>
+                  <div className="form-group col-md-8 col-lg-6">
+                    <DropDownInput
+                      className={"required"}
+                      type={"select"}
+                      as={"select"}
+                      title={"Is Email to be public on the map?"}
+                      name={"contact_email_public"}
+                      multiple={""}
+                      value={contactEmailPublic}
+                      handleChange={(e) => setContactEmailPublic(e.target.value)}
+                      options={[
+                        { id: "yes", name: "Yes" },
+                        { id: "no", name: "No" },
+                      ]}
+                    />
+                  </div>
+                </>))
+              ) : 
+              (
+                
+                  <div className="form-group col-md-4 col-lg-4">
+                    <Input
+                      type={"email"}
+                      title={"Contact Email Address"}
+                      name={"contact_email"}
+                      value={contactEmail}
+                      placeholder={"Contact email"}
+                      handleChange={(e) => setContactEmail(e.target.value)}
+                      errors={errors}
+                    />{" "}
+                  </div>
+              )}
+
+              {contactPhone ? (
+                contactPhone.map((phone) => (
+                  <>
+                    <div className="form-group col-md-4 col-lg-4">
+                      <Input
+                        type={"tel"}
+                        title={"Contact Phone Number"}
+                        name={"contact_phone"}
+                        value={phone.phone}
+                        placeholder={"Contact phone"}
+                        handleChange={(e) => setContactPhone(e.target.value)}
+                        errors={errors}
+                      />{" "}
+                  </div>
+                  <div className="form-group col-md-8 col-lg-6">
+                    <DropDownInput
+                      className={"required"}
+                      type={"select"}
+                      as={"select"}
+                      title={"Is Phone number to be public on the map?"}
+                      name={"contact_phone_public"}
+                      value={contactPhonePublic}
+                      multiple={""}
+                      handleChange={(e) => setContactPhonePublic(e.target.value)}
+                      options={[
+                        { id: "yes", name: "Yes" },
+                        { id: "no", name: "No" },
+                      ]}
+                    />
+                  </div>
+                </>))
+              ) : 
+              (
+                
+                  <div className="form-group col-md-4 col-lg-4">
+                    <Input
+                      type={"tel"}
+                      title={"Contact Phone Number"}
+                      name={"contact_phone"}
+                      value={contactPhone}
+                      placeholder={"Contact phone"}
+                      handleChange={(e) => setContactPhone(e.target.value)}
+                      errors={errors}
+                    />{" "}
+                  </div>
+
               )}
               <div className="col-12">
                 <Input
